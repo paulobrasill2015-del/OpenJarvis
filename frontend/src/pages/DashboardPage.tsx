@@ -1,3 +1,5 @@
+import { SystemStatus } from '../components/Dashboard/SystemStatus';
+import { RunningActivities } from '../components/Dashboard/RunningActivities';
 import { EnergyDashboard } from '../components/Dashboard/EnergyDashboard';
 import { CostComparison } from '../components/Dashboard/CostComparison';
 import { TraceDebugger } from '../components/Dashboard/TraceDebugger';
@@ -12,16 +14,21 @@ export function DashboardPage() {
         <header className="mb-6">
           <div className="flex items-center justify-between">
             <h1 className="text-lg font-semibold" style={{ color: 'var(--color-text)' }}>
-              System Overview
+              Painel Principal
             </h1>
             <div className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
               {stamp}
             </div>
           </div>
           <p className="text-sm mt-2 max-w-2xl" style={{ color: 'var(--color-text-secondary)' }}>
-            Telemetria em tempo real do motor de inferência local — consumo de energia, taxa de tokens e economia em comparação com APIs na nuvem.
+            Painel principal do OpenJarvis — status do backend, atividades em execução, telemetria de energia e economia em comparação com APIs na nuvem.
           </p>
         </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+          <SystemStatus />
+          <RunningActivities />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
           <EnergyDashboard />
