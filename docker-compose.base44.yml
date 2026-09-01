@@ -1,0 +1,75 @@
+services:
+  # ── Inference engine ──────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:0.30.10
+    volumes:
+      - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+  # One-shot: pull a small model so the server has something to serve.
+  ollama-pull:
+    image: ollama/ollama:0.30.10
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: ["ollama", "pull", "qwen3:1.7b"]
+    restart: "no"
+
+  # ── Backend (FastAPI / uvicorn via `jarvis serve`) ────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.base44
+    volumes:
+      - .:/app
+      - oj-data:/data
+    environment:
+      # Non-loopback bind requires an API key (check_bind_safety).
+      - OPENJARVIS_API_KEY=dev-only-key-base44
+      - OLLAMA_HOST=http://ollama:11434
+      - OPENJARVIS_HOME=/data
+    env_file:
+      - ./.env.base44-defaults
+      - /run/base44/app.env
+    command: jarvis serve --host 0.0.0.0 --port 8000 --engine ollama --model qwen3:1.7b --agent simple
+    depends_on:
+      ollama:
+        condition: service_healthy
+      ollama-pull:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  # ── Frontend (Vite dev server) ─────────────────────────────────────
+  frontend:
+    image: node:22-slim
+    working_dir: /app/frontend
+    volumes:
+      - .:/app
+      - frontend-node-modules:/app/frontend/node_modules
+    environment:
+      # Server-side only (not VITE_-prefixed): Vite proxy target inside the
+      # compose network.  VITE_API_URL is intentionally unset so the browser
+      # uses relative URLs that flow through the Vite proxy (single-origin).
+      - API_PROXY_TARGET=http://backend:8000
+      - VITE_OPENJARVIS_API_KEY=dev-only-key-base44
+    command: sh -c "npm install -g npm@11.19.0 && npm install --ignore-scripts && npx vite --host 0.0.0.0 --port 5173"
+    ports:
+      - "3000:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  ollama-models:
+  oj-data:
+  frontend-node-modules:

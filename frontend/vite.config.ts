@@ -7,6 +7,13 @@ import { VitePWA } from 'vite-plugin-pwa';
 // VITE_SUPABASE_ANON_KEY is intentionally NOT required here: a missing key
 // disables the savings leaderboard at runtime (see src/lib/supabase.ts) rather
 // than failing the build, so the package/app stays publishable without it.
+
+// API_PROXY_TARGET is a server-side-only (non-VITE_-prefixed) env var for the
+// Vite dev-server proxy target inside Docker compose.  It keeps VITE_API_URL
+// unset so the browser uses relative URLs through the proxy (single-origin).
+const apiTarget =
+  process.env.API_PROXY_TARGET || process.env.VITE_API_URL || 'http://localhost:8000';
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -52,6 +59,8 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
+    allowedHosts: true,
     port: 5173,
     proxy: {
       // ws: true is required for the /v1/agents/events WebSocket. Without it
@@ -59,12 +68,12 @@ export default defineConfig({
       // opens — no error, no close event, just silence — and every live agent
       // view sits empty in dev while working in a production build.
       '/v1': {
-        target: process.env.VITE_API_URL || 'http://localhost:8000',
+        target: apiTarget,
         changeOrigin: true,
         ws: true,
       },
-      '/health': process.env.VITE_API_URL || 'http://localhost:8000',
-      '/api': process.env.VITE_API_URL || 'http://localhost:8000',
+      '/health': apiTarget,
+      '/api': apiTarget,
     },
   },
 });

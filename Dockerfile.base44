@@ -1,0 +1,36 @@
+# Base44 dev image for the OpenJarvis backend.
+# Has the Rust toolchain + uv pre-installed so the mandatory PyO3 extension
+# (openjarvis_rust) can be built once at image build time.  At runtime the
+# repo source is bind-mounted over /app so edits are picked up live; the
+# compiled .so lives in /opt/venv (outside the bind mount) and survives.
+FROM python:3.12-slim-bookworm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential ca-certificates curl pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Rust 1.88 — required by the workspace (let-chains, is_multiple_of).
+ENV PATH="/root/.cargo/bin:${PATH}"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+        sh -s -- -y --profile minimal --default-toolchain 1.88
+
+RUN pip install --no-cache-dir uv
+
+# Keep the venv outside the bind-mounted /app so it is not clobbered at runtime.
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
+ENV UV_PYTHON_DOWNLOADS=never
+
+WORKDIR /app
+
+# Copy everything needed for the dependency + Rust build.  The live source
+# is bind-mounted over this at runtime, so these copies are build-time only.
+COPY pyproject.toml uv.lock README.md ./
+COPY src/ src/
+COPY rust/ rust/
+COPY scripts/install scripts/install
+COPY deploy/windows deploy/windows
+COPY configs/ configs/
+
+# Install Python deps (server extra) + build the Rust extension from source.
+RUN uv sync --group desktop-native --extra server --frozen
