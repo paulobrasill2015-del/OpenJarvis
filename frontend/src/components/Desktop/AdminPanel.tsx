@@ -353,7 +353,7 @@ export function AdminPanel({ apiUrl }: { apiUrl: string }) {
         <div style={styles.card}>
           <div style={styles.cardTitle}>System Info</div>
           <div style={styles.row}>
-            <span style={styles.label}>Version</span>
+            <span style={styles.label}>Versão</span>
             <span style={styles.value}>{serverInfo?.version || '0.1.0'}</span>
           </div>
           <div style={styles.row}>

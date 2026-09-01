@@ -327,7 +327,7 @@ export function EnergyDashboard({ apiUrl }: { apiUrl: string }) {
         </div>
 
         <div style={styles.statCard}>
-          <div style={styles.statLabel}>Avg Power Draw</div>
+          <div style={styles.statLabel}>Potência Média</div>
           <div style={styles.statValue}>
             {energyData?.avg_power_w !== undefined ? (
               <>

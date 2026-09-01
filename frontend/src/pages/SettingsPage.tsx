@@ -764,7 +764,7 @@ export function SettingsPage() {
                   onClick={handleImport}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer"
                   style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}
-                           onMouseEnter={(e) =urrenentTargete.background = 'var(--color-bg-tertiary)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-tertiary)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-bg-secondary)')}
                 >
                   <Upload size={12} /> Import

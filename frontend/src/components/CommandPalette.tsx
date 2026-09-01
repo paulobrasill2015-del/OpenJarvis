@@ -156,7 +156,7 @@ export function CommandPalette() {
         await preloadModel(modelId, owner);
         addLogEntry({ timestamp: Date.now(), level: 'info', category: 'model', message: `${modelId} loaded` });
       } catch (e: any) {
-        addLogEntry({ timestamp: Date.now(), level: 'error', category: 'model', message: `Failed to load ${modelId}: ${e.message}` });
+        addLogEntry({ timestamp: Date.now(), level: 'error', category: 'model', message: `Falha ao carregar ${modelId}: ${e.message}` });
       } finally {
         setModelLoading(false);
       }

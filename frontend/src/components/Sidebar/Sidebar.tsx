@@ -233,6 +233,3 @@ export function Sidebar() {
     </>
   );
 }
-   </>
-  );
-}

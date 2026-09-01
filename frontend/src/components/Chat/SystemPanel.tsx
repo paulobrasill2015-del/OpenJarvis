@@ -243,7 +243,7 @@ export function SystemPanel() {
                 color: optInEnabled ? 'var(--color-accent)' : 'var(--color-text-secondary)',
               }}
             >
-              {optInEnabled ? 'Sharing Savings' : 'Share Your Savings'}
+              {optInEnabled ? 'Compartilhando Economia' : 'Compartilhe Sua Economia'}
             </span>
             <span
               className="text-[9px] px-1.5 py-0.5 rounded-full"

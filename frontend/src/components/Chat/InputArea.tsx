@@ -175,7 +175,7 @@ export function InputArea() {
     const content = input.trim();
     if (!content || streamState.isStreaming) return;
     if (!selectedModel) {
-      toast.error('Pick a model first (⌘K)');
+      toast.error('Escolha um modelo primeiro (⌘K)');
       return;
     }
 
@@ -235,7 +235,7 @@ export function InputArea() {
     setStreamState({
       conversationId: convId,
       isStreaming: true,
-      phase: deepResearch ? 'Researching...' : 'Generating...',
+      phase: deepResearch ? 'Pesquisando...' : 'Gerando...',
       elapsedMs: 0,
       activeToolCalls: [],
       content: '',
@@ -382,7 +382,7 @@ export function InputArea() {
         const eventName = sseEvent.event;
 
         if (eventName === 'agent_turn_start') {
-          setStreamState({ phase: 'Agent thinking...' });
+          setStreamState({ phase: 'Agente pensando...' });
         } else if (eventName === 'inference_start') {
           setStreamState({ phase: 'Gerando...' });
           useAppStore.getState().addLogEntry({
@@ -400,13 +400,13 @@ export function InputArea() {
             };
             toolCalls.push(tc);
             setStreamState({
-              phase: `Calling ${data.tool}...`,
+              phase: `Chamando ${data.tool}...`,
               activeToolCalls: [...toolCalls],
             });
             updateLastAssistant(convId, accumulatedContent, [...toolCalls]);
             useAppStore.getState().addLogEntry({
               timestamp: Date.now(), level: 'info', category: 'tool',
-              message: `Calling ${data.tool}(${serializeToolCallArguments(data.arguments)})`,
+              message: `Chamando ${data.tool}(${serializeToolCallArguments(data.arguments)})`,
             });
           } catch {}
         } else if (eventName === 'tool_call_end') {
@@ -421,7 +421,7 @@ export function InputArea() {
               tc.result = data.result;
             }
             setStreamState({
-              phase: 'Generating...',
+              phase: 'Gerando...',
               activeToolCalls: [...toolCalls],
             });
             updateLastAssistant(convId, accumulatedContent, [...toolCalls]);
@@ -456,7 +456,7 @@ export function InputArea() {
     } catch (err: any) {
       if (err.name === 'AbortError') {
         // User cancelled or model switch — keep whatever was accumulated
-        if (!accumulatedContent) accumulatedContent = '(Generation stopped)';
+        if (!accumulatedContent) accumulatedContent = '(Geração interrompida)';
       } else {
         const errMsg = err?.message || String(err);
         accumulatedContent =
@@ -471,7 +471,7 @@ export function InputArea() {
       useAppStore.getState().setLiveEnergy(null);
     } finally {
       if (!accumulatedContent) {
-        accumulatedContent = 'No response was generated. Please try again.';
+        accumulatedContent = 'Nenhuma resposta foi gerada. Tente novamente.';
       }
       const totalMs = Date.now() - startTime;
       const appState = useAppStore.getState();
@@ -576,10 +576,10 @@ export function InputArea() {
               border: `1px solid ${deepResearch ? 'var(--color-accent)' : 'var(--color-border)'}`,
               color: deepResearch ? 'var(--color-accent)' : 'var(--color-text-tertiary)',
             }}
-            title={deepResearch ? 'Deep Research: on' : 'Deep Research: off'}
+            title={deepResearch ? 'Pesquisa Profunda: ligada' : 'Pesquisa Profunda: desligada'}
           >
             <Search size={12} />
-            Deep Research
+            Pesquisa Profunda
           </button>
         </div>
         {deepResearch && corpusSync.syncing && corpusSync.itemsSynced > 0 && (
@@ -587,7 +587,7 @@ export function InputArea() {
             className="text-[11px] leading-snug"
             style={{ color: 'var(--color-text-tertiary)' }}
           >
-            Searching over{' '}
+            Pesquisando em{' '}
             <span key={corpusSync.itemsSynced} className="sync-bump" style={{ color: 'var(--color-text-secondary)' }}>
               {corpusSync.itemsSynced.toLocaleString()}
             </span>{' '}
@@ -619,7 +619,7 @@ export function InputArea() {
             onClick={stopStreaming}
             className="p-2 rounded-xl transition-colors shrink-0 cursor-pointer"
             style={{ background: 'var(--color-error)', color: 'var(--color-on-accent)' }}
-            title="Stop generating"
+            title="Parar geração"
           >
             <Square size={16} />
           </button>
@@ -634,7 +634,7 @@ export function InputArea() {
             <button
               onClick={sendMessage}
               disabled={streamState.isStreaming || !input.trim() || modelLoading || !selectedModel}
-              title={selectedModel ? 'Send message' : 'Pick a model first (⌘K)'}
+              title={selectedModel ? 'Enviar mensagem' : 'Escolha um modelo primeiro (⌘K)'}
               className="p-2 rounded-xl transition-colors shrink-0 cursor-pointer disabled:opacity-30 disabled:cursor-default"
               style={{
                 background: input.trim() ? 'var(--color-accent)' : 'var(--color-bg-tertiary)',
@@ -648,14 +648,10 @@ export function InputArea() {
       </div>
       <div className="flex items-center justify-center mt-2 text-[11px]" style={{ color: 'var(--color-text-tertiary)' }}>
         <span>
-          <kbd className="font-mono">Enter</kbd> to send &middot;{' '}
-          <kbd className="font-mono">Shift+Enter</kbd> for new line
+          <kbd className="font-mono">Enter</kbd> para enviar &middot;{' '}
+          <kbd className="font-mono">Shift+Enter</kbd> para nova linha
         </span>
       </div>
     </div>
   );
-}
-;
-}
-
 }

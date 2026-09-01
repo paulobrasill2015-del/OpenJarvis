@@ -120,7 +120,7 @@ export function ApprovalBell() {
             <div className="flex items-center gap-2">
               <Bell size={13} style={{ color: 'var(--color-accent)' }} />
               <span className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
-                Agent Approvals
+                Aprovações de Agentes
               </span>
             </div>
             {count > 0 && (

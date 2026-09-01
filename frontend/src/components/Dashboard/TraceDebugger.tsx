@@ -146,7 +146,7 @@ export function TraceDebugger() {
       <div className="hud-panel p-6">
         <h3 className="hud-label flex items-center gap-2 mb-4">
           <GitBranch size={12} style={{ color: 'var(--color-accent)' }} />
-          Trace Debugger
+          Depurador de Rastros
         </h3>
         <div className="h-48 flex items-center justify-center text-sm" style={{ color: 'var(--color-text-tertiary)' }}>
           <span className="hud-mono">{error}</span>

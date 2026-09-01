@@ -192,7 +192,7 @@ export function ResearchTimeline({ traces, isLive, hasContent }: Props) {
           border: 'none',
           padding: 0,
         }}
-        title={expanded ? 'Collapse search trace' : 'Expand search trace'}
+        title={expanded ? 'Recolher rastro de busca' : 'Expandir rastro de busca'}
       >
         <span>{summary}</span>
         <Chevron size={12} />

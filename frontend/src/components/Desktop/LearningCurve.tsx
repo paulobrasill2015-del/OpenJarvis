@@ -229,7 +229,7 @@ export function LearningCurve({ apiUrl }: { apiUrl: string }) {
   if (error && !stats) {
     return (
       <div style={styles.container}>
-        <div style={styles.header}>Learning Curve</div>
+        <div style={styles.header}>Curva de Aprendizado</div>
         <div style={styles.error}>{error}</div>
       </div>
     );
@@ -248,7 +248,7 @@ export function LearningCurve({ apiUrl }: { apiUrl: string }) {
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>Learning Curve</div>
+      <div style={styles.header}>Curva de Aprendizado</div>
 
       {error && <div style={styles.error}>{error}</div>}
 
@@ -408,7 +408,7 @@ export function LearningCurve({ apiUrl }: { apiUrl: string }) {
       {/* Bandit arm stats */}
       {isBandit && (policy?.bandit_arms ?? []).length > 0 && (
         <div style={{ ...styles.card, marginTop: 16 }}>
-          <div style={styles.cardTitle}>Bandit Arm Statistics</div>
+          <div style={styles.cardTitle}>Estatísticas do Bandit</div>
           <table style={styles.table}>
             <thead>
               <tr>
