@@ -19,7 +19,7 @@ export function DashboardPage() {
             </div>
           </div>
           <p className="text-sm mt-2 max-w-2xl" style={{ color: 'var(--color-text-secondary)' }}>
-            Live telemetry for the on-device inference engine — power draw, token throughput, and cost savings versus cloud APIs.
+            Telemetria em tempo real do motor de inferência local — consumo de energia, taxa de tokens e economia em comparação com APIs na nuvem.
           </p>
         </header>
 

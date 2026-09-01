@@ -164,7 +164,7 @@ export function ChatArea() {
                 onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
               >
                 <MessageSquare size={14} style={{ color: 'var(--color-accent)' }} />
-                Set Up Messaging Channels
+                Configurar Canais de Mensagem
               </button>
             </div>
           </div>
@@ -198,5 +198,8 @@ export function ChatArea() {
       </div>
       <InputArea />
     </div>
+  );
+}
+
   );
 }

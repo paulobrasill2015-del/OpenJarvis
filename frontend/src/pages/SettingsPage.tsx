@@ -305,7 +305,7 @@ export function SettingsPage() {
       }
       setSrcMsg('Saved — restart the app to apply.');
     } catch (e: any) {
-      setSrcMsg(e?.message ?? 'Failed to save.');
+      setSrcMsg(e?.message ?? 'Falha ao salvar.');
     }
   }, [srcKind, customHost, customModel, customEngine, customKey]);
 
@@ -384,7 +384,7 @@ export function SettingsPage() {
                 background: 'var(--color-accent-subtle)',
                 color: 'var(--color-success)',
               }}>
-                <Check size={12} /> Saved
+                <Check size={12} /> Salvo
               </span>
             )}
           </div>
@@ -429,9 +429,9 @@ export function SettingsPage() {
                   border: '1px solid var(--color-border)',
                 }}
               >
-                <option value="small">Small</option>
-                <option value="default">Default</option>
-                <option value="large">Large</option>
+                <option value="small">Pequeno</option>
+                <option value="default">Padrão</option>
+                <option value="large">Grande</option>
               </select>
             </SettingRow>
           </Section>
@@ -453,7 +453,7 @@ export function SettingsPage() {
               <input
                 type="text"
                 value={settings.apiUrl}
-                onChange={(e) => { updateSettings({ apiUrl: e.target.value }); showSaved(); }}
+                onC   onChange={(e) => { updateSettings({ apiUrl: e.target.value }); showSaved(); }}
                 placeholder="http://localhost:8000"
                 className="text-sm px-3 py-1.5 rounded-lg outline-none w-56"
                 style={{
@@ -463,7 +463,7 @@ export function SettingsPage() {
                 }}
               />
             </SettingRow>
-            <SettingRow label="API key" description="Required only if the server was started with an API key">
+            <SettingRow label="Chave de API" description="Necessária apenas se o servidor foi iniciado com uma chave de API">
               <input
                 type="password"
                 value={settings.apiKey}
@@ -516,7 +516,7 @@ export function SettingsPage() {
                     <option value="mlx">MLX</option>
                   </select>
                 </SettingRow>
-                <SettingRow label="API key (optional)" description="Only if your server requires one">
+                <SettingRow label="Chave de API (opcional)" description="Apenas se seu servidor exigir uma">
                   <input type="password" value={customKey} onChange={(e) => { setCustomKey(e.target.value); setSrcMsg(''); }} placeholder="leave blank if none"
                     className="text-sm px-3 py-1.5 rounded-lg outline-none w-56"
                     style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }} />
@@ -527,7 +527,7 @@ export function SettingsPage() {
               <button onClick={saveSource}
                 className="text-sm px-3 py-1.5 rounded-lg outline-none cursor-pointer"
                 style={{ background: 'var(--color-accent, var(--color-bg-tertiary))', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}>
-                Save inference source
+                Salvar fonte de inferência
               </button>
             </SettingRow>
           </Section>
@@ -551,7 +551,7 @@ export function SettingsPage() {
           </Section>
 
           {/* API Keys */}
-          <Section title="API Keys">
+          <Section title="Chaves de API">
             <SettingRow label="OpenAI" description="GPT-4, GPT-3.5, etc.">
               <ApiKeyInput keyName="OPENAI_API_KEY" placeholder="sk-..." />
             </SettingRow>
@@ -579,7 +579,7 @@ export function SettingsPage() {
               <div className="flex items-center gap-2">
                 <Brain size={14} style={{ color: memoryStats ? 'var(--color-accent)' : 'var(--color-text-tertiary)' }} />
                 <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                  {memoryStats ? `${memoryStats.entries} entries` : 'Unavailable'}
+                  {memoryStats ? `${memoryStats.entries} entradas` : 'Indisponível'}
                 </span>
               </div>
             </SettingRow>
@@ -627,7 +627,7 @@ export function SettingsPage() {
                 <option value="hybrid">hybrid</option>
               </select>
             </SettingRow>
-            <SettingRow label="Results to inject" description={`${memoryTopK}`}>
+            <SettingRow label="Resultados a injetar" description={`${memoryTopK}`}>
               <input
                 type="range"
                 min="1"
@@ -705,7 +705,7 @@ export function SettingsPage() {
 
           {/* Speech */}
           <Section title="Speech">
-            <SettingRow label="Speech-to-Text" description="Enable microphone input for voice dictation">
+            <SettingRow label="Fala para Texto" description="Ativar entrada de microfone para ditado por voz">
               <button
                 onClick={() => { updateSettings({ speechEnabled: !settings.speechEnabled }); showSaved(); }}
                 className="relative w-11 h-6 rounded-full transition-colors cursor-pointer"
@@ -722,7 +722,7 @@ export function SettingsPage() {
                 />
               </button>
             </SettingRow>
-            <SettingRow label="Backend status" description="Requires Whisper, Deepgram, or another speech backend">
+            <SettingRow label="Status do backend" description="Requer Whisper, Deepgram ou outro backend de fala">
               <div className="flex items-center gap-2">
                 <span
                   className="w-2 h-2 rounded-full"
@@ -733,7 +733,7 @@ export function SettingsPage() {
                   }}
                 />
                 <span className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                  {speechBackendAvailable === null ? 'Checking...'
+                  {speechBackendAvailable === null ? 'Verificando...'
                     : speechBackendAvailable ? 'Available'
                     : 'Not configured'}
                 </span>
@@ -748,8 +748,8 @@ export function SettingsPage() {
           </Section>
 
           {/* Data */}
-          <Section title="Data">
-            <SettingRow label="Conversations" description={`${conversations.length} stored locally`}>
+          <Section title="Dados">
+            <SettingRow label="Conversas" description={`${conversations.length} armazenadas localmente`}>
               <div className="flex gap-2">
                 <button
                   onClick={handleExport}
@@ -764,7 +764,7 @@ export function SettingsPage() {
                   onClick={handleImport}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer"
                   style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-bg-tertiary)')}
+                           onMouseEnter={(e) =urrenentTargete.background = 'var(--color-bg-tertiary)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-bg-secondary)')}
                 >
                   <Upload size={12} /> Import
@@ -783,7 +783,7 @@ export function SettingsPage() {
                 onMouseEnter={(e) => { if (!confirmClear) e.currentTarget.style.background = 'rgba(220,38,38,0.1)'; }}
                 onMouseLeave={(e) => { if (!confirmClear) e.currentTarget.style.background = 'transparent'; }}
               >
-                <Trash2 size={12} /> {confirmClear ? 'Click again to confirm' : 'Clear'}
+                <Trash2 size={12} /> {confirmClear ? 'Clique novamente para confirmar' : 'Limpar'}
               </button>
             </SettingRow>
           </Section>
@@ -805,7 +805,7 @@ export function SettingsPage() {
                 />
               </button>
             </SettingRow>
-            <SettingRow label="Check for updates" description="Manually check for a new version right now">
+            <SettingRow label="Verificar atualizações" description="Verificar manualmente por uma nova versão agora">
               <button
                 onClick={handleCheckNow}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
@@ -813,10 +813,10 @@ export function SettingsPage() {
                 disabled={updateCheckState === 'checking'}
               >
                 <RefreshCw size={12} className={updateCheckState === 'checking' ? 'animate-spin' : ''} />
-                {updateCheckState === 'checking' && 'Checking...'}
-                {updateCheckState === 'available' && 'Update available — see banner above'}
-                {updateCheckState === 'latest' && 'Already up to date'}
-                {updateCheckState === 'idle' && 'Check now'}
+                {updateCheckState === 'checking' && 'Verificando...'}
+                {updateCheckState === 'available' && 'Atualização disponível — veja o banner acima'}
+                {updateCheckState === 'latest' && 'Já está atualizado'}
+                {updateCheckState === 'idle' && 'Verificar agora'}
               </button>
             </SettingRow>
           </Section>
@@ -845,7 +845,7 @@ export function SettingsPage() {
                   rel="noopener noreferrer"
                   style={{ color: 'var(--color-accent)' }}
                 >
-                  Documentation
+                  Documentação
                 </a>
               </div>
             </div>
@@ -854,4 +854,50 @@ export function SettingsPage() {
       </div>
     </div>
   );
+}
+ );
+}
+);
+}
+</div>
+  );
+}
+ );
+}
+
+}
+
+</div>
+  );
+}
+ );
+}
+
+}
+
+}
+
+}
+
+}
+}
+
+}
+
+ );
+}
+
+}
+
+}
+
+}
+
+}
+}
+
+}
+
+}
+
 }

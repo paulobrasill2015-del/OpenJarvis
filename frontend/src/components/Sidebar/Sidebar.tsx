@@ -154,7 +154,7 @@ export function Sidebar() {
               </span>
               {modelLoading && (
                 <span className="text-[10px] block text-left" style={{ color: 'var(--color-accent)' }}>
-                  Loading model...
+                  Carregando modelo...
                 </span>
               )}
             </div>
@@ -231,5 +231,8 @@ export function Sidebar() {
         </div>
       </aside>
     </>
+  );
+}
+   </>
   );
 }

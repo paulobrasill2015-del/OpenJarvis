@@ -10,7 +10,7 @@ const LEVEL_COLORS: Record<string, string> = {
 
 function formatTime(ts: number): string {
   const d = new Date(ts);
-  return d.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  return d.toLocaleTimeString('pt-BR', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
 export function LogsPage() {
@@ -58,7 +58,7 @@ export function LogsPage() {
             </div>
           </div>
           <p className="text-sm mt-2 max-w-2xl" style={{ color: 'var(--color-text-secondary)' }}>
-            Recent activity — chat events, model switches, tool calls, and system messages from this session.
+            Atividade recente — eventos de chat, trocas de modelo, chamadas de ferramentas e mensagens do sistema desta sessão.
           </p>
         </header>
 

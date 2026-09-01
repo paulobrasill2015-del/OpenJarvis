@@ -50,10 +50,10 @@ export function OptInModal({ onClose }: OptInModalProps) {
   };
 
   const features = [
-    { icon: Lock, label: 'Private — no IP or hardware info shared publicly' },
-    { icon: Zap, label: 'Track energy savings from local inference' },
-    { icon: DollarSign, label: 'See how much you save vs cloud providers' },
-    { icon: Cpu, label: 'Measure FLOPs and request efficiency' },
+    { icon: Lock, label: 'Privado — nenhum IP ou informação de hardware compartilhado publicamente' },
+    { icon: Zap, label: 'Acompanhe a economia de energia da inferência local' },
+    { icon: DollarSign, label: 'Veja quanto você economiza vs provedores na nuvem' },
+    { icon: Cpu, label: 'Meça FLOPs e eficiência de requisições' },
   ];
 
   return (

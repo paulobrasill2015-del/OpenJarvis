@@ -37,7 +37,7 @@ export function ConversationList({ searchQuery }: Props) {
   if (filtered.length === 0) {
     return (
       <div className="px-3 py-8 text-center text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
-        {searchQuery ? 'No matching chats' : 'No conversations yet'}
+        {searchQuery ? 'Nenhuma conversa encontrada' : 'Nenhuma conversa ainda'}
       </div>
     );
   }

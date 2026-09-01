@@ -261,9 +261,9 @@ export function CommandPalette() {
   };
 
   const TAB_LABELS: Record<Tab, string> = {
-    installed: `Installed Models (${models.length})`,
-    catalogue: 'Download',
-    cloud: 'Cloud Models',
+    installed: `Modelos Instalados (${models.length})`,
+    catalogue: 'Baixar',
+    cloud: 'Modelos na Nuvem',
   };
 
   return (
@@ -313,7 +313,7 @@ export function CommandPalette() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={tab === 'installed' ? 'Search installed models...' : 'Search models to download...'}
+              placeholder={tab === 'installed' ? 'Buscar modelos instalados...' : 'Buscar modelos para baixar...'}
               className="flex-1 bg-transparent outline-none text-sm"
               style={{ color: 'var(--color-text)' }}
             />

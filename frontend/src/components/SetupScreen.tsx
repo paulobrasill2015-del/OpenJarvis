@@ -10,9 +10,9 @@ import { useAppStore } from '../lib/store';
 import { isEmbedOnlyModel } from '../lib/model-capabilities';
 
 const STEPS = [
-  { key: 'ollama_ready', label: 'Inference Engine', icon: Cpu, detail: 'Starting Ollama...' },
-  { key: 'model_ready', label: 'AI Model', icon: Database, detail: 'Loading model...' },
-  { key: 'server_ready', label: 'API Server', icon: Server, detail: 'Starting server...' },
+  { key: 'ollama_ready', label: 'Motor de Inferência', icon: Cpu, detail: 'Iniciando Ollama...' },
+  { key: 'model_ready', label: 'Modelo de IA', icon: Database, detail: 'Carregando modelo...' },
+  { key: 'server_ready', label: 'Servidor de API', icon: Server, detail: 'Iniciando servidor...' },
 ] as const;
 
 type StepKey = (typeof STEPS)[number]['key'];

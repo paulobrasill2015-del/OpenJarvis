@@ -245,8 +245,8 @@ export function InputArea() {
       level: 'info',
       category: 'chat',
       message: deepResearch
-        ? `Research: "${content.slice(0, 80)}${content.length > 80 ? '...' : ''}"`
-        : `Request: "${content.slice(0, 80)}${content.length > 80 ? '...' : ''}" → ${selectedModel}`,
+        ? `Pesquisa: "${content.slice(0, 80)}${content.length > 80 ? '...' : ''}"`
+        : `Requisição: "${content.slice(0, 80)}${content.length > 80 ? '...' : ''}" → ${selectedModel}`,
     });
 
     try {
@@ -384,10 +384,10 @@ export function InputArea() {
         if (eventName === 'agent_turn_start') {
           setStreamState({ phase: 'Agent thinking...' });
         } else if (eventName === 'inference_start') {
-          setStreamState({ phase: 'Generating...' });
+          setStreamState({ phase: 'Gerando...' });
           useAppStore.getState().addLogEntry({
             timestamp: Date.now(), level: 'info', category: 'chat',
-            message: `Generating with ${selectedModel}...`,
+            message: `Gerando com ${selectedModel}...`,
           });
         } else if (eventName === 'tool_call_start') {
           try {
@@ -608,7 +608,7 @@ export function InputArea() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={selectedModel ? 'Message OpenJarvis...' : 'Pick a model first (⌘K)...'}
+          placeholder={selectedModel ? 'Mensagem para OpenJarvis...' : 'Escolha um modelo primeiro (⌘K)...'}
           rows={1}
           className="flex-1 bg-transparent outline-none resize-none text-sm leading-relaxed"
           style={{ color: 'var(--color-text)', maxHeight: '200px' }}
@@ -654,4 +654,8 @@ export function InputArea() {
       </div>
     </div>
   );
+}
+;
+}
+
 }
